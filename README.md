@@ -11,12 +11,12 @@
 >
 > Date: 10/29/2015
 
-#### Description
+#### <u>Description</u>
 
 The files provided are skeleton code, as well as grading previews and testing files to be used in completing the course programming assignments. 
 Additionally, you are provided a runnable JavaFX program which will help to test and demonstrate your implementations.
 
-#### Files
+#### <u>Files</u>
 
 Below are the files introduced in each week and used in each week of the course. See file for description.
 
@@ -50,7 +50,7 @@ Below are the files introduced in each week and used in each week of the course.
 - `spelling.NearbyWords.java`
 - `spelling.WPTree.java`
 
-#### Setup 
+#### <u>Setup</u> 
 
 Importing Project into eclipse:
 - Create a new Java Project in your workspace
@@ -61,7 +61,7 @@ Importing Project into eclipse:
 Feel free to use another IDE or manually compile and run your programs.
 If you need help, google is your friend.
 
-#### Acknowledgment
+#### <u>Acknowledgment</u>
 
 A big thank you to Tomas Mikula for creating [RichTextFX](https://github.com/TomasMikula/RichTextFX) which was used as the text area in the GUI application.
 
