@@ -11,7 +11,14 @@ public class BasicDocumentGrader {
         try
         {
             System.out.println("Sentences, words, and syllables:");
-            BufferedReader br = new BufferedReader(new FileReader("test_cases/mod1TestCases.txt"));
+
+            String inputFile =
+                    BasicDocumentGrader.class
+                            .getClass()
+                            .getResource("/test_cases/mod1TestCases.txt")
+                            .getFile();
+
+            BufferedReader br = new BufferedReader(new FileReader(inputFile));
             String line;
             PrintWriter out = new PrintWriter("grader_output/module1.part1.out", "utf-8");
             while ((line = br.readLine()) != null)
@@ -26,7 +33,7 @@ public class BasicDocumentGrader {
             System.out.println("\nFlesch scores:");
             br.close();
 
-            br = new BufferedReader(new FileReader("test_cases/mod1TestCases.txt"));
+            br = new BufferedReader(new FileReader(inputFile));
             out = new PrintWriter("grader_output/module1.part2.out", "utf-8");
             while ((line = br.readLine()) != null)
             {

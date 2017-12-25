@@ -9,7 +9,14 @@ public class EfficientDocumentGrader {
         try
         {
             System.out.println("Sentences, words, and syllables:");
-            BufferedReader br = new BufferedReader(new FileReader("test_cases/mod2TestCases.txt"));
+
+            String inputFile =
+                    EfficientDocumentGrader.class
+                            .getClass()
+                            .getResource("/test_cases/mod2TestCases.txt")
+                            .getFile();
+
+            BufferedReader br = new BufferedReader(new FileReader(inputFile));
             String line;
             PrintWriter out = new PrintWriter("grader_output/module2.part1.out", "utf-8");
             while ((line = br.readLine()) != null)

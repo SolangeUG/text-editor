@@ -6,6 +6,7 @@
 .project
 .classpath
 bin/
+grader_output/
 
 # Maven
 target/
