@@ -6,54 +6,80 @@ import java.util.List;
  * A class that represents a text document
  * It does one pass through the document to count the number of syllables, words, 
  * and sentences and then stores those values.
- * 
+ *
  * @author UC San Diego Intermediate Programming MOOC team
+ * @author Solange U. Gasengayire
  */
 public class EfficientDocument extends Document {
 
-	private int numWords;  // The number of words in the document
-	private int numSentences;  // The number of sentences in the document
-	private int numSyllables;  // The number of syllables in the document
-	
-	public EfficientDocument(String text)
-	{
+	// The number of words in the document
+	private int numWords;
+
+	// The number of sentences in the document
+	private int numSentences;
+
+	// The number of syllables in the document
+	private int numSyllables;
+
+	/**
+	 * Create a new EfficientDocument object
+	 * @param text The full text of the Document.
+	 */
+	public EfficientDocument(String text) {
 		super(text);
 		processText();
 	}
 	
 	
 	/** 
-	 * Take a string that either contains only alphabetic characters,
-	 * or only sentence-ending punctuation.  Return true if the string
-	 * contains only alphabetic characters, and false if it contains
-	 * end of sentence punctuation.  
+	 * Take a string that either contains only alphabetic characters, or only sentence-ending punctuation.
+	 * Return true if the string contains only alphabetic characters,
+	 * and false if it contains end of sentence punctuation.
 	 * 
 	 * @param tok The string to check
 	 * @return true if tok is a word, false if it is punctuation. 
 	 */
-	private boolean isWord(String tok)
-	{
+	private boolean isWord(String tok) {
 	    // Note: This is a fast way of checking whether a string is a word
 	    // You probably don't want to change it.
-		return !(tok.indexOf("!") >=0 || tok.indexOf(".") >=0 || tok.indexOf("?")>=0);
+		// return !(tok.indexOf("!") >=0 || tok.indexOf(".") >=0 || tok.indexOf("?")>=0);
+
+		return !(tok.contains("!") || tok.contains(".") || tok.contains("?"));
 	}
 	
 	
-    /** Passes through the text one time to count the number of words, syllables 
+    /**
+	 * Passes through the text one time to count the number of words, syllables
      * and sentences, and set the member variables appropriately.
      * Words, sentences and syllables are defined as described below. 
      */
-	private void processText()
-	{
-		// Call getTokens on the text to preserve separate strings that are 
-		// either words or sentence-ending punctuation.  Ignore everything
-		// That is not a word or a sentence-ending puctuation.
-		// MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST
-		// OF THIS METHOD.
+	private void processText() {
+		// Call getTokens on the text to preserve separate strings that are either words or sentence-ending punctuation.
+		// Ignore everything that is not a word or a sentence-ending puctuation.
+		// MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST OF THIS METHOD.
 		List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
 		
-		// TODO: Finish this method.  Remember the countSyllables method from 
-		// Document.  That will come in handy here.  isWord defined above will also help.
+		// DONE: Finish this method.
+		// Remember the countSyllables method from Document.
+		// That will come in handy here. isWord defined above will also help.
+		for (int i = 0; i < tokens.size(); i++) {
+
+			String token = tokens.get(i);
+
+			if (isWord(token)) {
+				numWords++;
+				numSyllables += countSyllables(token);
+
+				// This is for sentences like this "many???  Senteeeeeeeeeences are"
+				// 	- They don't end with any punctuation mark.
+				// 	- So, the only way to identify them is if the last token of the list is a word.
+				if (i == tokens.size() - 1) {
+					numSentences++;
+				}
+			} else {
+				numSentences++;
+			}
+		}
 	}
 
 	
@@ -72,8 +98,8 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSentences() {
-		//TODO: write this method.  Hint: It's simple
-		return 0;
+		// DONE: write this method.  Hint: It's simple.
+		return numSentences;
 	}
 
 	
@@ -93,8 +119,8 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumWords() {
-		//TODO: write this method.  Hint: It's simple
-	    return 0;
+		// DONE: write this method.  Hint: It's simple.
+	    return numWords;
 	}
 
 
@@ -115,14 +141,16 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSyllables() {
-        //TODO: write this method.  Hint: It's simple
-        return 0;
+        // DONE: write this method.  Hint: It's simple.
+        return numSyllables;
 	}
-	
-	// Can be used for testing
-	// We encourage you to add your own tests here.
-	public static void main(String[] args)
-	{
+
+	/**
+	 * The main method for testing this class.
+	 * We encourage you to add your own tests here.
+	 * @param args command-line arguments
+	 */
+	public static void main(String[] args) {
 	    testCase(new EfficientDocument("This is a test.  How many???  "
                 + "Senteeeeeeeeeences are here... there should be 5!  Right?"),
                 16, 13, 5);

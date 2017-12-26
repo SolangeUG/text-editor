@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-/** A class for timing the EfficientDocument and BasicDocument classes
- * 
+/**
+ * A class for timing the EfficientDocument and BasicDocument classes
  * @author UC San Diego Intermediate Programming MOOC team
- *
+ * @author Solange U. Gasengayire
  */
 
 public class DocumentBenchmarking {
@@ -26,8 +26,8 @@ public class DocumentBenchmarking {
 						.getResource("/data/warAndPeace.txt")
 						.getFile();
 		
-	    // The amount of characters to increment each step
-	    // You can play around with this
+	    // The amount of characters to increment each step.
+	    // You can play around with this.
 		int increment = 20000;
 
 		// The number of steps to run.  
@@ -38,12 +38,12 @@ public class DocumentBenchmarking {
 		// You can play around with this.
 		int start = 50000;
 		
-		// TODO: Fill in the rest of this method so that it runs two loops
+		// DONE: Fill in the rest of this method so that it runs two loops
 		// and prints out timing results as described in the assignment 
 		// instructions and following the pseudocode below.
-		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
-				numToCheck += increment)
-		{
+		for (int numToCheck = start; numToCheck < numSteps * increment + start;
+				numToCheck += increment) {
+
 			// numToCheck holds the number of characters that you should read from the 
 			// file to create both a BasicDocument and an EfficientDocument.  
 			
@@ -61,43 +61,65 @@ public class DocumentBenchmarking {
 			 *     b. Calls fleshScore on this document
 			 * 6. Print out the time it took to complete the loop in step 5 
 			 *      (on the same line as the first print statement) followed by a newline (\n) 
-			 */  
+			 */
+
+			System.out.print(numToCheck + "\t");
+			String text = getStringFromFile(textfile, numToCheck);
+
+			long startTime = System.nanoTime();
+			for (int i = 0; i < trials; i++) {
+				BasicDocument basicDoc = new BasicDocument(text);
+				basicDoc.getFleschScore();
+			}
+			long endTime = System.nanoTime();
+			double basicTime = (endTime - startTime) / 1_000_000_000.0;
+			System.out.print(basicTime + "\t");
+
+			startTime = System.nanoTime();
+			for (int i = 0; i < trials; i++) {
+				EfficientDocument efficientDoc = new EfficientDocument(text);
+				efficientDoc.getFleschScore();
+			}
+			endTime = System.nanoTime();
+			double efficientTime = (endTime - startTime) / 1_000_000_000.0;
+			System.out.println(efficientTime + "\t");
 			 
 		}
 	
 	}
 	
-	/** Get a specified number of characters from a text file
-	 * 
+	/**
+	 * Get a specified number of characters from a text file
 	 * @param filename The file to read from
 	 * @param numChars The number of characters to read
 	 * @return The text string from the file with the appropriate number of characters
 	 */
-	public static String getStringFromFile(String filename, int numChars) {
+	private static String getStringFromFile(String filename, int numChars) {
 		
-		StringBuffer s = new StringBuffer();
+		StringBuilder s = new StringBuilder();
 		try {
+
 			FileInputStream inputFile= new FileInputStream(filename);
 			InputStreamReader inputStream = new InputStreamReader(inputFile);
 			BufferedReader bis = new BufferedReader(inputStream);
+
 			int val;
 			int count = 0;
 			while ((val = bis.read()) != -1 && count < numChars) {
 				s.append((char)val);
 				count++;
 			}
+
 			if (count < numChars) {
 				System.out.println("Warning: End of file reached at " + count + " characters.");
 			}
 			bis.close();
-		}
-		catch(Exception e)
-		{
-		  System.out.println(e);
+
+		} catch(Exception e) {
+		  e.printStackTrace();
 		  System.exit(0);
 		}
-		
-		
+
 		return s.toString();
 	}
 	
