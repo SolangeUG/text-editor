@@ -4,20 +4,25 @@ import java.util.Random;
 import java.util.HashMap;
 import java.io.PrintWriter;
 
+/**
+ * A grader class to test the MarkovTextGenerator implementation
+ * @author UC San Diego Intermediate Programming MOOC team
+ * @author Solange U. Gasengayire
+ */
 public class MarkovTextGeneratorGrader {
+
     private static final int LENGTH = 500;
 
     public static void main(String[] args) {
         try {
             MarkovTextGenerator gen = new MarkovTextGeneratorLoL(new Random());
-            
-            int incorrect = 0;
-            int tests = 0;
+
             String feedback = "";
 
             feedback += "\n** Test 1: Generating text before training...";
             try {
                 String s = gen.generateText(20);
+                System.out.println("\ngenerated text: \n" + s);
                 feedback += "No error thrown. ";
             } catch (Exception e) {
                 feedback += "Error thrown. ";
@@ -27,6 +32,7 @@ public class MarkovTextGeneratorGrader {
             feedback += "\n** Test 2: Generating text after training on an empty file...";
             try {
                 String s = gen.generateText(20);
+                System.out.println("\ngenerated text: \n" + s);
                 feedback += "No error thrown. ";
             } catch (Exception e) {
                 feedback += "Error thrown. ";
@@ -42,7 +48,7 @@ public class MarkovTextGeneratorGrader {
             feedback += "\n** Test #3: Checking requested generator word count...";
             feedback += "Your generator produced " + words.length + " words. ";
 
-            HashMap<String, Integer> wordCounts = new HashMap<String, Integer>();
+            HashMap<String, Integer> wordCounts = new HashMap<>();
 
             for (String w : words) {
                 if (wordCounts.containsKey(w)) {
@@ -56,11 +62,9 @@ public class MarkovTextGeneratorGrader {
             feedback += "\n** Test #4: Testing specific word counts...";
             feedback += "'I' appeared " + wordCounts.get("I") + " times. ";
 
-            boolean found = true;
             feedback += "\n** Test #5: Checking that every word is used at least once...";
             feedback += "Done. ";
 
-            found = true;
             feedback += "\n** Test 6: Seeing if last word is always followed by first word...";
             feedback += "Done. ";
 
@@ -90,7 +94,7 @@ public class MarkovTextGeneratorGrader {
             PrintWriter f = new PrintWriter("grader_output/module3.part2.out");
             f.println(feedback);
             f.close();
-            return;
+
         } catch (Exception e) {
             System.out.println("Error during runtime: " + e);
         }
