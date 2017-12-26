@@ -1,40 +1,36 @@
-/**
- * 
- */
 package spelling;
 
-import static org.junit.Assert.*;
-
-import java.util.LinkedList;
-
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+
+import static org.junit.Assert.assertEquals;
 
 /**
+ * JUnit tests for the DictionaryBST class
  * @author UC San Diego MOOC team
- *
+ * @author Solange U. Gasengayire
  */
-public class DictionaryLLTester {
+public class DictionaryBSTTester {
 
 	private String dictFile =
-			DictionaryLLTester
+			DictionaryBSTTester
 				.class
 				.getResource("/data/words.small.txt")
 				.getFile();
 
-	DictionaryLL emptyDict; 
-	DictionaryLL smallDict;
-	DictionaryLL largeDict;
+	private DictionaryBST emptyDict;
+	private DictionaryBST smallDict;
+	private DictionaryBST largeDict;
 	
 	/**
-	 * @throws java.lang.Exception
+	 * State initializer method
 	 */
-	@Before
-	public void setUp() throws Exception 
-	{
-		emptyDict = new DictionaryLL();
-		smallDict = new DictionaryLL();
-		largeDict = new DictionaryLL();
+	@BeforeEach
+	public void setUp() {
+		emptyDict = new DictionaryBST();
+		smallDict = new DictionaryBST();
+		largeDict = new DictionaryBST();
 
 		smallDict.addWord("Hello");
 		smallDict.addWord("HElLo");
@@ -46,20 +42,23 @@ public class DictionaryLLTester {
 	}
 
 	
-	/** Test if the size method is working correctly.
+	/**
+	 * Test if the size method is working correctly.
 	 */
 	@Test
-	public void testSize()
-	{
+	@DisplayName("Test size of dictionary as a treeset")
+	public void testSize() {
 		assertEquals("Testing size for empty dict", 0, emptyDict.size());
 		assertEquals("Testing size for small dict", 4, smallDict.size());
 		assertEquals("Testing size for large dict", 4438, largeDict.size());
 	}
 	
-	/** Test the isWord method */
+	/**
+	 * Test the isWord method
+	 */
 	@Test
-	public void testIsWord()
-	{
+	@DisplayName("Test isWord method of dictionary as a treeset")
+	public void testIsWord() {
 		assertEquals("Testing isWord on empty: Hello", false, emptyDict.isWord("Hello"));
 		assertEquals("Testing isWord on small: Hello", true, smallDict.isWord("Hello"));
 		assertEquals("Testing isWord on large: Hello", true, largeDict.isWord("Hello"));
@@ -79,16 +78,14 @@ public class DictionaryLLTester {
 		
 		assertEquals("Testing isWord on small: subsequent", true, smallDict.isWord("subsequent"));
 		assertEquals("Testing isWord on large: subsequent", true, largeDict.isWord("subsequent"));
-		
-		
 	}
 	
-	/** Test the addWord method */
+	/**
+	 * Test the addWord method
+	 */
 	@Test
-	public void addWord()
-	{
-		
-		
+	@DisplayName("Test addWord method of dictionary as a treeset")
+	public void addWord() {
 		assertEquals("Asserting hellow is not in empty dict", false, emptyDict.isWord("hellow"));
 		assertEquals("Asserting hellow is not in small dict", false, smallDict.isWord("hellow"));
 		assertEquals("Asserting hellow is not in large dict", false, largeDict.isWord("hellow"));
@@ -124,8 +121,6 @@ public class DictionaryLLTester {
 		
 		assertEquals("Testing isWord on small: subsequent", true, smallDict.isWord("subsequent"));
 		assertEquals("Testing isWord on large: subsequent", true, largeDict.isWord("subsequent"));
-		
-		
 	}	
-	
+
 }

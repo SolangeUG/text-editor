@@ -1,19 +1,18 @@
-/**
- * 
- */
 package spelling;
-
-import static org.junit.Assert.*;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
+ * JUnit tests for the AutoCompleteDictionaryTrie class
  * @author UC San Diego MOOC team
- *
+ * @author Solange U. Gasengayire
  */
 public class AutoCompleteDictionaryTrieTester {
 
@@ -24,16 +23,15 @@ public class AutoCompleteDictionaryTrieTester {
 				.getFile();
 
 
-	AutoCompleteDictionaryTrie emptyDict; 
-	AutoCompleteDictionaryTrie smallDict;
-	AutoCompleteDictionaryTrie largeDict;
+	private AutoCompleteDictionaryTrie emptyDict;
+	private AutoCompleteDictionaryTrie smallDict;
+	private AutoCompleteDictionaryTrie largeDict;
 	
 	/**
-	 * @throws java.lang.Exception
+	 * State initializer method
 	 */
 	@Before
-	public void setUp() throws Exception 
-	{
+	public void setUp() {
 		emptyDict = new AutoCompleteDictionaryTrie();
 		smallDict = new AutoCompleteDictionaryTrie();
 		largeDict = new AutoCompleteDictionaryTrie();
@@ -50,22 +48,24 @@ public class AutoCompleteDictionaryTrieTester {
 		
 		DictionaryLoader.loadDictionary(largeDict, dictFile);
 	}
-
 	
-	/** Test if the size method is working correctly.
+	/**
+	 * Test if the size method is working correctly.
 	 */
 	@Test
-	public void testSize()
-	{
+	@DisplayName("Test size method of dictionary as a trie")
+	public void testSize() {
 		assertEquals("Testing size for empty dict", 0, emptyDict.size());
 		assertEquals("Testing size for small dict", 8, smallDict.size());
 		assertEquals("Testing size for large dict", 4438, largeDict.size());
 	}
 	
-	/** Test the isWord method */
+	/**
+	 * Test the isWord method
+	 */
 	@Test
-	public void testIsWord()
-	{
+	@DisplayName("Test isWord method of dictionary as a trie")
+	public void testIsWord() {
 		assertEquals("Testing isWord on empty: Hello", false, emptyDict.isWord("Hello"));
 		assertEquals("Testing isWord on small: Hello", true, smallDict.isWord("Hello"));
 		assertEquals("Testing isWord on large: Hello", true, largeDict.isWord("Hello"));
@@ -85,16 +85,14 @@ public class AutoCompleteDictionaryTrieTester {
 		
 		assertEquals("Testing isWord on small: subsequent", true, smallDict.isWord("subsequent"));
 		assertEquals("Testing isWord on large: subsequent", true, largeDict.isWord("subsequent"));
-		
-		
 	}
 	
-	/** Test the addWord method */
+	/**
+	 * Test the addWord method
+	 */
 	@Test
-	public void testAddWord()
-	{
-		
-		
+	@DisplayName("Test addWord method of dictionary as a trie")
+	public void testAddWord() {
 		assertEquals("Asserting hellow is not in empty dict", false, emptyDict.isWord("hellow"));
 		assertEquals("Asserting hellow is not in small dict", false, smallDict.isWord("hellow"));
 		assertEquals("Asserting hellow is not in large dict", false, largeDict.isWord("hellow"));
@@ -130,13 +128,14 @@ public class AutoCompleteDictionaryTrieTester {
 		
 		assertEquals("Testing isWord on small: subsequent", true, smallDict.isWord("subsequent"));
 		assertEquals("Testing isWord on large: subsequent", true, largeDict.isWord("subsequent"));
-		
-		
 	}
-	
+
+	/**
+	 * Test the predictCompletions method
+	 */
 	@Test
-	public void testPredictCompletions()
-	{
+	@DisplayName("Test predictCompletions method of dictionary as a trie")
+	public void testPredictCompletions() {
 		List<String> completions;
 		completions = smallDict.predictCompletions("", 0);
 		assertEquals(0, completions.size());
@@ -164,8 +163,5 @@ public class AutoCompleteDictionaryTrieTester {
 		completions = smallDict.predictCompletions("x", 5);
 		assertEquals(0, completions.size());
 	}
-	
-	
-	
 	
 }
