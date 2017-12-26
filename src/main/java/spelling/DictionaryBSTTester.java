@@ -16,7 +16,11 @@ import org.junit.Test;
  */
 public class DictionaryBSTTester {
 
-	private String dictFile = "data/words.small.txt"; 
+	private String dictFile =
+			DictionaryBSTTester
+				.class
+				.getResource("/data/words.small.txt")
+				.getFile();
 
 	DictionaryBST emptyDict; 
 	DictionaryBST smallDict;

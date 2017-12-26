@@ -13,8 +13,8 @@ public class BasicDocumentGrader {
             System.out.println("Sentences, words, and syllables:");
 
             String inputFile =
-                    BasicDocumentGrader.class
-                            .getClass()
+                    BasicDocumentGrader
+                            .class
                             .getResource("/test_cases/mod1TestCases.txt")
                             .getFile();
 

@@ -20,7 +20,14 @@ public class NearbyWordsGraderOne {
 
         try {
             Dictionary d = new DictionaryHashSet();
-            DictionaryLoader.loadDictionary(d, "test_cases/dict.txt");
+
+            String fileName =
+                    NearbyWordsGraderOne
+                        .class
+                        .getResource("/test_cases/dict.txt")
+                        .getFile();
+
+                    DictionaryLoader.loadDictionary(d, fileName);
             NearbyWords nw = new NearbyWords(d);
 
             List<String> d1 = nw.distanceOne("word", true);

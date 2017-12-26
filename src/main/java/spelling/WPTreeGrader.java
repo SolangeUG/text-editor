@@ -38,7 +38,14 @@ public class WPTreeGrader {
         try {
 
             Dictionary dict = new DictionaryHashSet();
-            DictionaryLoader.loadDictionary(dict, "data/grader_dict.txt");
+
+            String fileName =
+                    NearbyWordsGraderOne
+                            .class
+                            .getResource("/data/grader_dict.txt")
+                            .getFile();
+
+            DictionaryLoader.loadDictionary(dict, fileName);
             WPTree tree = new WPTree(new NearbyWords(dict)); 
 
             List<String> path = tree.findPath("pool", "spoon");

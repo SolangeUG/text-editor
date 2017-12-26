@@ -17,7 +17,11 @@ public class DictionaryBenchmarking {
 	    int trials = 500;
 
 	    // The text to test on
-	    String dictFile = "data/dict.txt";
+	    String dictFile =
+				DictionaryBenchmarking
+					.class
+					.getResource("/data/dict.txt")
+					.getFile();
 		
 	    // The amount of words to increment each step
 	    // You can play around with this

@@ -20,7 +20,14 @@ public class NearbyWordsGraderTwo {
 
         try {
             Dictionary d = new DictionaryHashSet();
-            DictionaryLoader.loadDictionary(d, "test_cases/dict2.txt");
+
+            String fileName =
+                    NearbyWordsGraderOne
+                            .class
+                            .getResource("/test_cases/dict2.txt")
+                            .getFile();
+
+            DictionaryLoader.loadDictionary(d, fileName);
             NearbyWords nw = new NearbyWords(d);
 
             feedback += "** Test 1: 2 suggestions... ";

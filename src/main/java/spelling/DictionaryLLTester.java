@@ -16,7 +16,11 @@ import org.junit.Test;
  */
 public class DictionaryLLTester {
 
-	private String dictFile = "data/words.small.txt"; 
+	private String dictFile =
+			DictionaryLLTester
+				.class
+				.getResource("/data/words.small.txt")
+				.getFile();
 
 	DictionaryLL emptyDict; 
 	DictionaryLL smallDict;

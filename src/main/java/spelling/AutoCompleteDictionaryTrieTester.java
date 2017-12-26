@@ -17,7 +17,12 @@ import org.junit.Test;
  */
 public class AutoCompleteDictionaryTrieTester {
 
-	private String dictFile = "data/words.small.txt"; 
+	private String dictFile =
+			AutoCompleteDictionaryTrieTester
+				.class
+				.getResource("/data/words.small.txt")
+				.getFile();
+
 
 	AutoCompleteDictionaryTrie emptyDict; 
 	AutoCompleteDictionaryTrie smallDict;

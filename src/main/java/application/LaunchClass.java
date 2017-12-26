@@ -5,7 +5,10 @@ import java.util.Random;
 
 public class LaunchClass {
 	
-	private String dictFile = "../MOOCTextEditor/data/dict.txt";
+	private String dictFile =
+			LaunchClass.class
+				.getResource("/data/dict.txt")
+				.getFile();
 	
 	public LaunchClass() {
 		super();
