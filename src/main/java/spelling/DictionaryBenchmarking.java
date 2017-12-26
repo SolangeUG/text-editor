@@ -1,10 +1,10 @@
 package spelling;
 
 
-/** A class for timing the Dictionary Implementations
- * 
+/**
+ * A class for timing the Dictionary Implementations
  * @author UC San Diego Intermediate Programming MOOC team
- *
+ * @author Solange U. Gasengayire
  */
 
 public class DictionaryBenchmarking {
@@ -37,10 +37,9 @@ public class DictionaryBenchmarking {
 		
 		String notInDictionary = "notaword";
 		
-		// TODO: Play around with the numbers above and graph the output to see trends in the data
+		// DONE: Play around with the numbers above and graph the output to see trends in the data
 		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
-				numToCheck += increment)
-		{
+				numToCheck += increment) {
 			// Time the creation of finding a word that is not in the dictionary.
 			DictionaryLL llDict = new DictionaryLL();
 			DictionaryBST bstDict = new DictionaryBST();

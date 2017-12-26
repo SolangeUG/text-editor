@@ -3,28 +3,32 @@ package spelling;
 import java.io.PrintWriter;
 import java.util.List;
 
-// The specific grader used in this test is called "grader_dict.txt", 
-// which is in the data folder. When submitting your WPTree.java file, 
-// make sure it still points to data/dict.txt.
-
+/**
+ * A grader class for the WPTree class
+ * NB: The specific grader used in this test is called "grader_dict.txt",
+ *     which is in the data resources folder.
+ *     When submitting your WPTree.java file, make sure it still points to
+ *     resources/data/dict.txt.
+ */
 public class WPTreeGrader {
-    public static String printPath(List<String> path) {
+
+    private static String printPath(List<String> path) {
         if (path == null) {
             return "NULL PATH";
         }
-        String ret = "";
+
+        StringBuilder ret = new StringBuilder();
         for (int i = 0; i < path.size(); i++) {
-            ret += path.get(i);
+            ret.append(path.get(i));
             if (i < path.size() - 1) {
-                ret += ", ";
+                ret.append(", ");
             }
         }
-        return ret;
+        return ret.toString();
     }
 
     public static void main (String[] args) {
-        int incorrect = 0;
-        int tests = 0;
+
         String feedback = "";
 
         PrintWriter out;
@@ -50,22 +54,22 @@ public class WPTreeGrader {
 
             List<String> path = tree.findPath("pool", "spoon");
 
-            feedback += "** Test #1: Testing short path...";
+            feedback += "** Test #1: Testing short path... ";
             feedback += "Your path was: " + printPath(path) + ".\n";
 
             path = tree.findPath("stools", "moon");
 
-            feedback += "** Test #2: Testing long path...";
+            feedback += "** Test #2: Testing long path... ";
             feedback += "Your path was: " + printPath(path) + ".\n";
 
             path = tree.findPath("foal", "needless");
 
-            feedback += "** Test #3: Testing impossible path...";
+            feedback += "** Test #3: Testing impossible path... ";
             feedback += "Your path was: " + printPath(path) + ".\n";
 
             path = tree.findPath("needle", "kitten");
             
-            feedback += "** Test #4: Testing using a nonexistent word...";
+            feedback += "** Test #4: Testing using a nonexistent word... ";
             feedback += "Your path was: " + printPath(path) + ".\n";
         } catch (Exception e) {
             out.println(e);

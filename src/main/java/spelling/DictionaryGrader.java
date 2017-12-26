@@ -2,6 +2,10 @@ package spelling;
 
 import java.io.PrintWriter;
 
+/**
+ * A grader class for the implementation of a dictionary as a LinkedList
+ * @author UC San Diego Intermediate MOOC team
+ */
 public class DictionaryGrader {
     public static void main(String args[]) {
         PrintWriter out;
@@ -12,47 +16,46 @@ public class DictionaryGrader {
             return;
         }
 
-        int incorrect = 0;
-        int tests = 0;
         String feedback = "";
 
         try {
             Dictionary dictLL = new DictionaryLL();
 
-            feedback += "** Test #1: Adding new word to the LL dictionary...";
+            feedback += "** Test #1: Adding new word to the LL dictionary... ";
             feedback += "addWord returned " + dictLL.addWord("tEst") + ".\n";
 
-            feedback += "** Test #2: Adding a second word...";
+            feedback += "** Test #2: Adding a second word... ";
             dictLL.addWord("second");
             feedback += "Dictionary size is " + dictLL.size() + ".\n";
 
-            feedback += "** Test #3: Looking up word from first test...";
+            feedback += "** Test #3: Looking up word from first test... ";
             feedback += "isWord returned " + dictLL.isWord("teSt") + ".\n";
 
             Dictionary dictBST = new DictionaryBST();
 
-            feedback += "** Test #4: Adding a new word to the BST dictionary...";
+            feedback += "** Test #4: Adding a new word to the BST dictionary... ";
             feedback += "addWord returned " + dictBST.addWord("tEst") + ".\n";
             
-            feedback += "** Test #5: Adding second word to BST dictionary...";
+            feedback += "** Test #5: Adding second word to BST dictionary... ";
             dictBST.addWord("second");
             feedback += "Dictionary size is " + dictBST.size() + ".\n";
             
-            feedback += "** Test #6: Retrieving the word from the first test...";
+            feedback += "** Test #6: Retrieving the word from the first test... ";
             feedback += "isWord returned " + dictBST.isWord("teSt") + ".\n";
 
 
-            feedback += "** Test #7: Adding lots of words and retrieving some...";
+            feedback += "** Test #7: Adding lots of words and retrieving some... ";
             dictBST.addWord("seconds");
             dictBST.addWord("seconded");
             dictBST.addWord("secondhand");
             dictBST.addWord("selma");
-            feedback += "isWord(seconded) returned " + dictBST.isWord("seconded") + "; isWord(selma) returned " + dictBST.isWord("selma") + ".\n";
+            feedback += "isWord(seconded) returned " + dictBST.isWord("seconded")
+                        + "; isWord(selma) returned " + dictBST.isWord("selma") + ".\n";
     
-            feedback += "** Test #8: Testing non-word in DictLL...";
+            feedback += "** Test #8: Testing non-word in DictLL... ";
             feedback += "isWord(soup) returned " + dictLL.isWord("soup") + ".\n";
 
-            feedback += "** Test #9: Testing non-word in DictBST...";
+            feedback += "** Test #9: Testing non-word in DictBST... ";
             feedback += "isWord(soup) returned " + dictBST.isWord("soup") + ".\n";
 
         } catch (Exception e) {

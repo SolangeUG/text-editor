@@ -1,48 +1,50 @@
-/**
- * 
- */
 package spelling;
 
-import java.io.File;
 import java.util.HashSet;
-import java.util.Scanner;
 
 
 /**
  * A class that implements the Dictionary interface with a HashSet
+ * @author UC San Diego Intermediate MOOC team
  */
-public class DictionaryHashSet implements Dictionary 
-{
+public class DictionaryHashSet implements Dictionary {
 
     private HashSet<String> words;
-	
-	public DictionaryHashSet()
-	{
-	    words = new HashSet<String>();
+
+	/**
+	 * Constructor
+	 */
+	DictionaryHashSet() {
+	    words = new HashSet<>();
 	}
 	
-    /** Add this word to the dictionary.
+    /**
+	 * Add this word to the dictionary.
      * @param word The word to add
      * @return true if the word was added to the dictionary 
-     * (it wasn't already there). */
+     * 		   (it wasn't already there). */
 	@Override
-	public boolean addWord(String word) 
-	{
+	public boolean addWord(String word) {
 		return words.add(word.toLowerCase());
 	}
 
-	/** Return the number of words in the dictionary */
+	/**
+	 * Return the number of words in the dictionary
+	 * @return the size of this dictionary
+	 */
     @Override
-	public int size()
-	{
+	public int size() {
     	 return words.size();
 	}
 	
-	/** Is this a word according to this dictionary? */
+	/**
+	 * Is this a word according to this dictionary?
+	 * @param s the word to check
+	 * @return true if this word is in the dictionary
+	 * 		   false otherwise
+	 */
     @Override
 	public boolean isWord(String s) {
     	return words.contains(s.toLowerCase());
 	}
-	
-   
 }

@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.PrintWriter;
 
+/**
+ * A grader class for NearbyWords implementation
+ * @author UC San Diego Intermediate MOOC team
+ */
 public class NearbyWordsGraderOne {
+
     public static void main(String args[]) {
-        int tests = 0;
-        int incorrect = 0;
-        String feedback = "";
+
+        StringBuilder feedback = new StringBuilder();
         PrintWriter out;
 
         try {
@@ -32,42 +36,42 @@ public class NearbyWordsGraderOne {
 
             List<String> d1 = nw.distanceOne("word", true);
             
-            feedback += "** Test 1: distanceOne list size... ";
-            feedback += "distanceOne returned " + d1.size() + " words.\n";
+            feedback.append("** Test 1: distanceOne list size... ");
+            feedback.append("distanceOne returned ").append(d1.size()).append(" words.\n");
 
-            feedback += "** Test 2: distanceOne words returned... ";
+            feedback.append("** Test 2: distanceOne words returned... ");
             for (String i : d1) {
-                feedback += i + ", ";
+                feedback.append(i).append(", ");
             }
 
-            feedback += "\n** Test 3: distanceOne list size (allowing non-words)... ";
+            feedback.append("\n** Test 3: distanceOne list size (allowing non-words)... ");
             d1 = nw.distanceOne("word", false);
-            feedback += "distanceOne with non-words returned " + d1.size() + " words.\n";
+            feedback.append("distanceOne with non-words returned ").append(d1.size()).append(" words.\n");
             
-            d1 = new ArrayList<String>();
+            d1 = new ArrayList<>();
             
-            feedback += "** Test 4: deletions list size... ";
+            feedback.append("** Test 4: deletions list size... ");
             nw.deletions("makers", d1, true);
-            feedback += "deletions returned " + d1.size() + " words.\n";
+            feedback.append("deletions returned ").append(d1.size()).append(" words.\n");
 
-            feedback += "** Test 5: deletions words returned... ";
-            feedback += "deletions returned: ";
+            feedback.append("** Test 5: deletions words returned... ");
+            feedback.append("deletions returned: ");
             for (String i : d1) {
-                feedback += i + ", ";
+                feedback.append(i).append(", ");
             }
 
-            d1 = new ArrayList<String>();
+            d1 = new ArrayList<>();
 
-            feedback += "\n** Test 6: insertions list size... ";
+            feedback.append("\n** Test 6: insertions list size... ");
             nw.insertions("or", d1, true);
-            feedback += "insertions returned " + d1.size() + " words.\n";
+            feedback.append("insertions returned ").append(d1.size()).append(" words.\n");
 
-            feedback += "** Test 7: insertions words returned... ";
-            feedback += "insertions returned: ";
+            feedback.append("** Test 7: insertions words returned... ");
+            feedback.append("insertions returned: ");
             for (String i : d1) {
-                feedback += i + ", ";
+                feedback.append(i).append(", ");
             }
-            feedback += "\n";
+            feedback.append("\n");
             
         } catch (Exception e) {
             out.println("Runtime error: " + e);

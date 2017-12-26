@@ -4,39 +4,57 @@ import java.util.LinkedList;
 
 /**
  * A class that implements the Dictionary interface using a LinkedList
- *
+ * @author UC San Diego Intermediate MOOC team
+ * @author Solange
  */
-public class DictionaryLL implements Dictionary 
-{
+public class DictionaryLL implements Dictionary {
 
 	private LinkedList<String> dict;
-	
-    // TODO: Add a constructor
 
+    /**
+     * Constructor
+     */
+    DictionaryLL() {
+        this.dict = new LinkedList<>();
+    }
 
-    /** Add this word to the dictionary.  Convert it to lowercase first
-     * for the assignment requirements.
+    /**
+     * Add this word to the dictionary.
+     * Convert it to lowercase first for the assignment requirements.
      * @param word The word to add
      * @return true if the word was added to the dictionary 
-     * (it wasn't already there). */
+     *         (it wasn't already there).
+     */
     public boolean addWord(String word) {
-    	// TODO: Implement this method
-        return false;
+    	// DONE: Implement this method
+        boolean result = false;
+        if (! this.isWord(word)) {
+            result = dict.add(word.toLowerCase());
+        }
+        return result;
     }
 
-
-    /** Return the number of words in the dictionary */
-    public int size()
-    {
-        // TODO: Implement this method
-        return 0;
+    /**
+     * Return the number of words in the dictionary
+     * @return the size of this dictionary
+     */
+    public int size() {
+        // DONE: Implement this method
+        return dict.size();
     }
 
-    /** Is this a word according to this dictionary? */
+    /**
+     * Is this a word according to this dictionary?
+     * @param s the word to check
+     * @return true if s is in the dictionary
+     *         false otherwise
+     */
     public boolean isWord(String s) {
-        //TODO: Implement this method
-        return false;
+        // DONE: Implement this method
+        boolean result = false;
+        if (s != null && ! s.isEmpty()) {
+            result = dict.contains(s.toLowerCase());
+        }
+        return result;
     }
-
-    
 }

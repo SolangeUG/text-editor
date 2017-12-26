@@ -1,14 +1,16 @@
 package spelling;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.io.PrintWriter;
+import java.util.List;
 
+/**
+ * Another grader class for NearbyWords implementation
+ * @author UC San Diego Intermediate MOOC team
+ */
 public class NearbyWordsGraderTwo {
     public static void main(String args[]) {
-        int tests = 0;
-        int incorrect = 0;
-        String feedback = "";
+
+        StringBuilder feedback = new StringBuilder();
         PrintWriter out;
 
         try {
@@ -30,33 +32,33 @@ public class NearbyWordsGraderTwo {
             DictionaryLoader.loadDictionary(d, fileName);
             NearbyWords nw = new NearbyWords(d);
 
-            feedback += "** Test 1: 2 suggestions... ";
+            feedback.append("** Test 1: 2 suggestions... ");
             List<String> d1 = nw.suggestions("dag", 4);
-            feedback += "" + d1.size() + " suggestions returned.\n";
+            feedback.append("").append(d1.size()).append(" suggestions returned.\n");
 
-            feedback += "** Test 2: Checking suggestion correctness... ";
-            feedback += "Suggestions: ";
+            feedback.append("** Test 2: Checking suggestion correctness... ");
+            feedback.append("Suggestions: ");
             for (String i : d1) {
-                feedback += i + ", ";
+                feedback.append(i).append(", ");
             }
 
-            feedback += "\n** Test 3: 3 suggestions... ";
+            feedback.append("\n** Test 3: 3 suggestions... ");
             d1 = nw.suggestions("fare", 3);
-            feedback += "" + d1.size() + " suggestions returned.\n";
+            feedback.append("").append(d1.size()).append(" suggestions returned.\n");
 
-            feedback += "** Test 4: Checking suggestion correctness... ";
-            feedback += "Suggestions: ";
+            feedback.append("** Test 4: Checking suggestion correctness... ");
+            feedback.append("Suggestions: ");
             for (String i : d1) {
-                feedback += i + ", ";
+                feedback.append(i).append(", ");
             }
-            feedback += "\n";
+            feedback.append("\n");
             
         } catch (Exception e) {
             out.println(feedback + "Runtime error: " + e);
             return;
         }
 
-        out.println(feedback += "Tests complete. Make sure everything looks right.");
+        out.println(feedback.append("Tests complete. Make sure everything looks right."));
         out.close();
     }
 }
