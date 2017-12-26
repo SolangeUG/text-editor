@@ -2,18 +2,18 @@ package document;
 
 import java.util.List;
 
-/** 
+/**
  * A naive implementation of the Document abstract class. 
  * @author UC San Diego Intermediate Programming MOOC team
+ * @author Solange U. Gasengayire
  */
-public class BasicDocument extends Document 
-{
-	/** Create a new BasicDocument object
-	 * 
+public class BasicDocument extends Document {
+
+	/**
+	 * Create a new BasicDocument object
 	 * @param text The full text of the Document.
 	 */
-	public BasicDocument(String text)
-	{
+	public BasicDocument(String text) {
 		super(text);
 	}
 	
@@ -21,9 +21,9 @@ public class BasicDocument extends Document
 	/**
 	 * Get the number of words in the document.
 	 * A "word" is defined as a contiguous string of alphabetic characters
-	 * i.e. any upper or lower case characters a-z or A-Z.  This method completely 
-	 * ignores numbers when you count words, and assumes that the document does not have 
-	 * any strings that combine numbers and letters. 
+	 * i.e. any upper or lower case characters a-z or A-Z.
+	 * This method completely ignores numbers when you count words,
+	 * and assumes that the document does not have any strings that combine numbers and letters.
 	 * 
 	 * Check the examples in the main method below for more information.
 	 * 
@@ -32,11 +32,12 @@ public class BasicDocument extends Document
 	 * @return The number of words in the document.
 	 */
 	@Override
-	public int getNumWords()
-	{
-		//TODO: Implement this method in week 2 according to the comments above.  
+	public int getNumWords() {
+		// DONE: Implement this method in week 2 according to the comments above.
 		// See the Module 2 support videos if you need help.
-	    return 0;
+
+		List<String> tokens = getTokens("[a-zA-Z]+");
+	    return tokens.size();
 	}
 	
 	/**
@@ -52,11 +53,14 @@ public class BasicDocument extends Document
 	 * @return The number of sentences in the document.
 	 */
 	@Override
-	public int getNumSentences()
-	{
-	    //TODO: Implement this method.  See the Module 2 support videos 
-        // if you need help.
-        return 0;
+	public int getNumSentences() {
+	    // DONE: Implement this method.
+		// See the Module 2 support videos if you need help.
+
+		// The pattern below will break for floating point numbers,
+		// abbreviations, and other edge cases
+		List<String> tokens = getTokens("[^?.!]+");
+        return tokens.size();
 	}
 	
 	/**
@@ -74,25 +78,48 @@ public class BasicDocument extends Document
 	 * @return The number of syllables in the document.
 	 */
 	@Override
-	public int getNumSyllables()
-	{
-	    //TODO: Implement this method in week 2.  See the Module 2 support videos 
-        // if you need help.  And note that there is no need to use a regular
-		// expression for the syllable counting.  We recommend you implement 
-		// the helper function countSyllables in Document.java using a loop, 
+	public int getNumSyllables() {
+	    // TODO: Implement this method in week 2.
+		// See the Module 2 support videos if you need help.
+		// And note that there is no need to use a regular expression for the syllable counting.
+		// We recommend you implement the helper function countSyllables in Document.java using a loop,
 		// and then call it here on each word.
-        return 0;
+
+		// We provide for you two solutions:
+		// One that uses multiple regexs to calculate the number of syllables
+		// and the other that finds words using a loop.
+		// The regex solution is commented out here at the top.
+
+		// A first solution using regex's. Uncoment here to run it.
+		/*
+		List<String> tokens = getTokens("[aeiouyAEIOUY]+");
+		List<String> loneEs = getTokens("[^aeiouyAEIOUY]+[eE]\\b");
+		List<String> singleEs = getTokens("\\b[^aeiouyAEIOUY]*[eE]\\b");
+
+		return tokens.size() - (loneEs.size() - singleEs.size());
+		*/
+
+		// A solution that does NOT use regexs to find syllables
+		int totalSyllables = 0;
+		List<String> tokens = getTokens("[a-zA-Z]+");
+
+		for (String word : tokens) {
+			totalSyllables += countSyllables(word);
+		}
+		return totalSyllables;
 	}
-	
-	
-	/* The main method for testing this class. 
-	 * You are encouraged to add your own tests.  */
-	public static void main(String[] args)
-	{
-		/* Each of the test cases below uses the method testCase.  The first 
-		 * argument to testCase is a Document object, created with the string shown.
+
+	/**
+	 * The main method for testing this class.
+	 * You are encouraged to add your own tests.
+	 * @param args command-line arguments
+	 */
+	public static void main(String[] args) {
+
+		/* Each of the test cases below uses the method testCase.
+		 * The first argument to testCase is a Document object, created with the string shown.
 		 * The next three arguments are the number of syllables, words and sentences 
-		 * in the string, respectively.  You can use these examples to help clarify 
+		 * in the string, respectively. You can use these examples to help clarify
 		 * your understanding of how to count syllables, words, and sentences.
 		 */
 		testCase(new BasicDocument("This is a test.  How many???  "
@@ -109,7 +136,8 @@ public class BasicDocument extends Document
 		testCase(new BasicDocument("Segue"), 2, 1, 1);
 		testCase(new BasicDocument("Sentence"), 2, 1, 1);
 		testCase(new BasicDocument("Sentences?!"), 3, 1, 1);
-		testCase(new BasicDocument("Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
+		testCase(new BasicDocument(
+				"Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
 		         32, 15, 1);
 	}
 	
