@@ -79,7 +79,7 @@ public class BasicDocument extends Document {
 	 */
 	@Override
 	public int getNumSyllables() {
-	    // TODO: Implement this method in week 2.
+	    // DONE: Implement this method in week 2.
 		// See the Module 2 support videos if you need help.
 		// And note that there is no need to use a regular expression for the syllable counting.
 		// We recommend you implement the helper function countSyllables in Document.java using a loop,
