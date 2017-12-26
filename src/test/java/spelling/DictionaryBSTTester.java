@@ -1,6 +1,6 @@
 package spelling;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
  * @author UC San Diego MOOC team
  * @author Solange U. Gasengayire
  */
-public class DictionaryBSTTester {
+class DictionaryBSTTester {
 
 	private String dictFile =
 			DictionaryBSTTester
@@ -27,7 +27,7 @@ public class DictionaryBSTTester {
 	 * State initializer method
 	 */
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		emptyDict = new DictionaryBST();
 		smallDict = new DictionaryBST();
 		largeDict = new DictionaryBST();
@@ -47,7 +47,7 @@ public class DictionaryBSTTester {
 	 */
 	@Test
 	@DisplayName("Test size of dictionary as a treeset")
-	public void testSize() {
+	void testSize() {
 		assertEquals("Testing size for empty dict", 0, emptyDict.size());
 		assertEquals("Testing size for small dict", 4, smallDict.size());
 		assertEquals("Testing size for large dict", 4438, largeDict.size());
@@ -58,7 +58,7 @@ public class DictionaryBSTTester {
 	 */
 	@Test
 	@DisplayName("Test isWord method of dictionary as a treeset")
-	public void testIsWord() {
+	void testIsWord() {
 		assertEquals("Testing isWord on empty: Hello", false, emptyDict.isWord("Hello"));
 		assertEquals("Testing isWord on small: Hello", true, smallDict.isWord("Hello"));
 		assertEquals("Testing isWord on large: Hello", true, largeDict.isWord("Hello"));
@@ -85,7 +85,7 @@ public class DictionaryBSTTester {
 	 */
 	@Test
 	@DisplayName("Test addWord method of dictionary as a treeset")
-	public void addWord() {
+	void addWord() {
 		assertEquals("Asserting hellow is not in empty dict", false, emptyDict.isWord("hellow"));
 		assertEquals("Asserting hellow is not in small dict", false, smallDict.isWord("hellow"));
 		assertEquals("Asserting hellow is not in large dict", false, largeDict.isWord("hellow"));
