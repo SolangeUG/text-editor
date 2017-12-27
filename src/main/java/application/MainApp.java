@@ -20,15 +20,19 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-
-
-
+/**
+ * Text-Editor Main Application
+ * @author UC San Diego Intermediate Programming MOOC team
+ */
 public class MainApp extends Application {
+
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
-	
-	// called at start of application
+
+	/**
+	 * Called at start of application
+	 * @param primaryStage the primary, main stage
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -39,7 +43,7 @@ public class MainApp extends Application {
 		try {
 			// Load root layout from fxml
 			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/RootLayout.fxml"));
-			rootLayout = (BorderPane) loader.load();
+			rootLayout = loader.load();
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             
@@ -47,7 +51,6 @@ public class MainApp extends Application {
             primaryStage.setMinHeight(430);
             primaryStage.setMinWidth(334);
             primaryStage.show();
-            
           
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -59,12 +62,12 @@ public class MainApp extends Application {
 	/**
      * Shows the main TextApplication scene
      */
-    public void showTextProApp() {
+    private void showTextProApp() {
         try {
             // Load the fxml file and set into the center of the main layout
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/TextAppLayout.fxml"));
             
-            HBox textProPage = (HBox) loader.load();
+            HBox textProPage = loader.load();
             rootLayout.setCenter(textProPage);
             
             // Connect controller and main app
@@ -76,14 +79,10 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-    
-    
-    
-    // SHOW NEW STAGE METHODS
+
     
     /**
      * Shows dialog for user input error
-     * 
      * @param inErr - message to dispaly
      */
     public void showInputErrorDialog(String inErr) {
@@ -97,15 +96,13 @@ public class MainApp extends Application {
     
     /**
      * Displays dialog that allows user to select local text file to display in TextArea
-     * 
      * @param ta - reference to TextArea to display loaded text file
-     * 
      */
     public void showLoadFileDialog(AutoSpellingTextArea ta) {
     	try {
     		// Load the fxml file and create a new stage for the popup
 			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/LoadFileLayout.fxml"));
-			VBox page = (VBox) loader.load();
+			VBox page = loader.load();
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Load File");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -122,23 +119,23 @@ public class MainApp extends Application {
 
 			// Show the dialog and wait until the user closes it
 		    dialogStage.showAndWait();
-		    
-		    
-		
 
     	} catch (IOException e) {
     		// Exception gets thrown if the fxml file could not be loaded
     		e.printStackTrace();
     	}
-    	
     }
-    
- 
-    public void showEditDistanceDialog(String selectedText) {
+
+
+	/**
+	 * Edit distance dialog
+	 * @param selectedText the input selected text
+	 */
+	public void showEditDistanceDialog(String selectedText) {
     	try {
     		// Load the fxml file and create a new stage for the popup
 			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/EditDistanceLayout.fxml"));
-			VBox page = (VBox) loader.load();
+			VBox page = loader.load();
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Calculate Edit Distance");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -152,14 +149,10 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setField(selectedText);
 			
-			
 			// give controller reference to scene (cursor)
 
 			// Show the dialog and wait until the user closes it
 		    dialogStage.showAndWait();
-		    
-		    
-		
 
     	} catch (IOException e) {
     		// Exception gets thrown if the fxml file could not be loaded
@@ -210,10 +203,7 @@ public class MainApp extends Application {
 	    	if(text.getLayoutBounds().getWidth() > 200) {
 		    	alert.getDialogPane().setPrefWidth(text.getLayoutBounds().getWidth()+100);
 	    	}
-	    	
-    	}
-    	// no path found
-    	else {
+    	} else { // no path found
     		pathLabel.setText("No Path Found.");
     		numSteps.setText("N/A");
     	}
@@ -225,13 +215,16 @@ public class MainApp extends Application {
     	alert.getDialogPane().getStyleClass().add("myDialog");
     	alert.showAndWait();
     }
-    
-    
-    public void showMarkovDialog(textgen.MarkovTextGenerator mtg) {
+
+	/**
+	 * Show Markov text generator dialog
+	 * @param mtg supplied generator
+	 */
+	public void showMarkovDialog(textgen.MarkovTextGenerator mtg) {
     	try {
     		// Load the fxml file and create a new stage for the popup
 			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MarkovLayout.fxml"));
-			BorderPane page = (BorderPane) loader.load();
+			BorderPane page = loader.load();
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Markov Text Generator");
 			//dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -248,19 +241,20 @@ public class MainApp extends Application {
 
 			// Show the dialog and wait until the user closes it
 		    dialogStage.showAndWait();
-		    
-		    
-		
 
     	} catch (IOException e) {
     		// Exception gets thrown if the fxml file could not be loaded
     		e.printStackTrace();
     	}
-    	
-    	
+
     }
-    
-    public void showLoadStage(Stage loadStage, String text) {
+
+	/**
+	 * Show the provided parameter stage
+	 * @param loadStage the parameter stage
+	 * @param text the text to display
+	 */
+	public void showLoadStage(Stage loadStage, String text) {
     	loadStage.initModality(Modality.APPLICATION_MODAL);
     	loadStage.initOwner(primaryStage);
         VBox loadVBox = new VBox(20);
@@ -274,13 +268,19 @@ public class MainApp extends Application {
         loadStage.setScene(loadScene);
         loadStage.show();
     }
-    
-    
-    // MAIN
+
+	/**
+	 * Main application entry
+	 * @param args command-line arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
+	/**
+	 * Return this application main stage
+	 * @return the primary stage
+	 */
 	public Stage getStage() {
 		return this.primaryStage;
 	}
