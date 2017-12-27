@@ -1,30 +1,29 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.OptionalInt;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
 import org.fxmisc.richtext.PopupAlignment;
 import org.fxmisc.richtext.StyleSpans;
 import org.fxmisc.richtext.StyleSpansBuilder;
 import org.fxmisc.richtext.StyledTextArea;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * AutoSpellingTextArea
+ * @author UC San Diego Intermediate Programming MOOC team
+ */
 public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 
 	private static final int NUM_COMPLETIONS = 6;
@@ -62,10 +61,10 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 
 	static {
 		try {
-			mHit = Class.forName("org.fxmisc.richtext.skin.StyledTextAreaView").getDeclaredMethod("hit", double.class,
-					double.class);
+			mHit = Class.forName("org.fxmisc.richtext.skin.StyledTextAreaView")
+						.getDeclaredMethod("hit", double.class, double.class);
 			mGetCharacterIndex = Class.forName("org.fxmisc.richtext.skin.CharacterHit")
-					.getDeclaredMethod("getCharacterIndex");
+									  .getDeclaredMethod("getCharacterIndex");
 
 		} catch (ClassNotFoundException | NoSuchMethodException ex) {
 			throw new RuntimeException(ex);
@@ -77,7 +76,8 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 
 	// end set up reflection
 
-	public AutoSpellingTextArea(spelling.AutoComplete ac, spelling.SpellingSuggest ss, spelling.Dictionary dic) {
+	AutoSpellingTextArea(spelling.AutoComplete ac, spelling.SpellingSuggest ss, spelling.Dictionary dic) {
+
 		super(true, (textNode, correct) -> {
 			// define boolean Text node style
 			if (!correct) {
@@ -131,7 +131,7 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		// AUTOCOMPLETE
 
 		// initialize list and options menu for autoComplete
-		options = new ArrayList<String>();
+		options = new ArrayList<>();
 		entriesPopup = new ContextMenu();
 		setPopupWindow(entriesPopup);
 		setPopupAlignment(PopupAlignment.CARET_BOTTOM);
@@ -140,7 +140,7 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		this.caretPositionProperty().addListener((obs, oldPosition, newPosition) -> {
 			if (autoCompleteOn) {
 				// listen to textProperty to only
-				String prefix = getWordAtIndex(newPosition.intValue());
+				String prefix = getWordAtIndex(newPosition);
 				showCompletions(prefix);
 			}
 
@@ -150,12 +150,9 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 	/**
 	 * Gets white space delimited word which contains character at pos in text
 	 * Also sets startIndex and endIndex instance variables.
-	 * 
-	 * @param pos
-	 *            - index in text area
+	 * @param pos index in text area
 	 * @return word at index
 	 */
-
 	private String getWordAtIndex(int pos) {
 		String text = this.getText().substring(0, pos);
 
@@ -190,8 +187,8 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 	/**
 	 * Populate the entry set with the options passed in
 	 * 
-	 * @param options
-	 *            - list of auto complete options
+	 * @param options list of auto complete options
+	 * @return a list of custom menu items
 	 */
 	private List<CustomMenuItem> createOptions(List<String> options, boolean[] flags) {
 		List<CustomMenuItem> menuItems = new LinkedList<>();
@@ -215,16 +212,13 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 			CustomMenuItem item = new CustomMenuItem(entryLabel, true);
 
 			// register event where user chooses word (click)
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent actionEvent) {
-					needUpdate = false;
-					replaceText(startIndex, endIndex, result);
-					getWordAtIndex(startIndex);
-					setStyle(startIndex, endIndex, true);
-					needUpdate = true;
-				}
-			});
+			item.setOnAction(actionEvent -> {
+                needUpdate = false;
+                replaceText(startIndex, endIndex, result);
+                getWordAtIndex(startIndex);
+                setStyle(startIndex, endIndex, true);
+                needUpdate = true;
+            });
 
 			menuItems.add(item);
 		}
@@ -237,7 +231,7 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 	 * 
 	 * @return StyleSpans with misspelled words set to style false (!correct)
 	 */
-	public StyleSpans<Boolean> checkSpelling() {
+	private StyleSpans<Boolean> checkSpelling() {
 		String text = getText();
 		String word;
 
@@ -270,10 +264,8 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 	/**
 	 * show suggestions for word in menu at click point
 	 * 
-	 * @param word
-	 *            - word to get suggestions for
-	 * @param click
-	 *            - mouse click for displaying menu
+	 * @param word word to get suggestions for
+	 * @param click mouse click for displaying menu
 	 */
 	private void showSuggestions(String word, MouseEvent click) {
 		List<String> suggestions = ss.suggestions(word, NUM_SUGGESTIONS);
@@ -305,16 +297,13 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 		item = new CustomMenuItem(sLabel, true);
 
 		// register event to add word
-		item.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent actionEvent) {
-				// add word to both dictionaries
-				dic.addWord(word);
-				((spelling.Dictionary) ac).addWord(word);
+		item.setOnAction(actionEvent -> {
+            // add word to both dictionaries
+            dic.addWord(word);
+            ((spelling.Dictionary) ac).addWord(word);
 
-				setStyle(startIndex, endIndex, true);
-			}
-		});
+            setStyle(startIndex, endIndex, true);
+        });
 
 		menuItems.add(item);
 
@@ -323,6 +312,10 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 
 	}
 
+	/**
+	 * Show autocompletions suggestions
+	 * @param prefix the prefix for which to show autocompletions
+	 */
 	private void showCompletions(String prefix) {
 		// keep track of prefix
 		// check if in middle of typing word
@@ -364,7 +357,7 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 	public void setSpelling(boolean state) {
 		spellingOn = state;
 
-		if (state == true && getText().length() > 0) {
+		if (state && getText().length() > 0) {
 			this.setStyleSpans(0, checkSpelling());
 		}
 		// change all text to true/correct style
@@ -381,10 +374,10 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 	 * Returns a boolean array with true in position where word has an upper
 	 * case letter
 	 * 
-	 * @param word
+	 * @param word provided word
 	 * @return boolean array for uppercase or null if none
 	 */
-	public boolean[] getCaseFlags(String word) {
+	private boolean[] getCaseFlags(String word) {
 
 		boolean[] flags = new boolean[word.length()];
 
@@ -412,8 +405,8 @@ public class AutoSpellingTextArea extends StyledTextArea<Boolean> {
 	 * Converts characters in word passed in which have "true" in the parallel
 	 * index to flags array
 	 * 
-	 * @param word
-	 * @param flags
+	 * @param word provided word
+	 * @param flags array of booleans
 	 * @return string with uppercase in true positions
 	 */
 	private String convertCaseUsingFlags(String word, boolean[] flags) {
