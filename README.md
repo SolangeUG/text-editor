@@ -1,25 +1,33 @@
 # Text-Editor
 
-[![License MIT](https://img.shields.io/badge/license-MIT%20License-green.svg)](https://github.com/SolangeUG/fundamentals/blob/master/LICENSE)
-[![Platform Java](https://img.shields.io/badge/platform-Java-blue.svg)](https://docs.oracle.com/en/java/)
+[![MIT License](https://img.shields.io/badge/license-MIT%20License-green.svg)](https://github.com/SolangeUG/fundamentals/blob/master/LICENSE)
+[![Java Platform](https://img.shields.io/badge/platform-Java-blue.svg)](https://docs.oracle.com/en/java/)
+[![RichTextFX Library](https://img.shields.io/badge/library-RichTextFX-85C1E9.svg)](https://github.com/TomasMikula/RichTextFX)
+
+This project is a smart tsext editor/processor that incorporates *intelligent* behaviors of modern-day text interfaces including autocomplte,
+flagging misspelled words and spelling auto-correct.
+
+## Core Subjects
+
+- Use of appropriate java built-in data-structures
+- Interface implementations
+- Benchmark performances to measure running time of code
+- Big-O analysis
+- JUnit testing
+
 
 ## Languages - Libraries - Tools
 
-
-
-
-## Requirements
-
-
-
+- [Java SE 8](https://docs.oracle.com/javase/8/docs/)
+- [Maven](https://maven.apache.org/what-is-maven.html)
+- [JUnit 5](http://junit.org/junit5/docs/current/user-guide/)
+- Any IDE that supports JDK 8
 
 ## Resources
 
 - [Data Structures: Measuring and Optimizing Performance](https://www.coursera.org/learn/data-structures-optimizing-performance)
 - [Object Oriented Java Programming: Data Structures and Beyond Specialization](https://www.coursera.org/specializations/java-object-oriented)
 - [RichTextFX](https://github.com/TomasMikula/RichTextFX)
-
-
 
 ## License
 
