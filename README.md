@@ -4,7 +4,7 @@
 [![Java Platform](https://img.shields.io/badge/platform-Java-blue.svg)](https://docs.oracle.com/en/java/)
 [![RichTextFX Library](https://img.shields.io/badge/library-RichTextFX-85C1E9.svg)](https://github.com/TomasMikula/RichTextFX)
 
-This project is a smart tsext editor/processor that incorporates *intelligent* behaviors of modern-day text interfaces including autocomplte,
+This project is a smart text editor/processor that incorporates *intelligent* behaviors of modern-day text interfaces including autocomplete,
 flagging misspelled words and spelling auto-correct.
 
 ## Core Subjects
