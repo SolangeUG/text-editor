@@ -1,8 +1,6 @@
 package spelling;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Utility class to load a dictionary from a file
@@ -29,6 +27,26 @@ public class DictionaryLoader {
             e.printStackTrace();
         }
         
+    }
+
+    /**
+     * Load the words from a dictionary input stream into the dictionary
+     * @param d The dictionary to load
+     * @param fileStream The input stream containing the words to load. Each word must be on a separate line.
+     */
+    public static void loadDictionary(Dictionary d, InputStream fileStream) {
+        // Dictionary files have 1 word per line
+        BufferedReader reader;
+        try {
+            String nextWord;
+            reader = new BufferedReader(new InputStreamReader(fileStream));
+            while ((nextWord = reader.readLine()) != null) {
+                d.addWord(nextWord);
+            }
+        } catch (IOException e) {
+            System.err.println("Problem loading dictionary file: " + fileStream.toString());
+            e.printStackTrace();
+        }
     }
     
     /**
