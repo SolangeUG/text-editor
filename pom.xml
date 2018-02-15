@@ -7,7 +7,7 @@
 
     <groupId>org.training.java</groupId>
     <artifactId>text-editor</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <name>Text Editor</name>
     <description>
@@ -34,14 +34,12 @@
     </properties>
 
     <dependencies>
-        <!-- UCSD provided project library -->
+        <!-- RichTextFX dependency -->
+        <!-- https://github.com/FXMisc/RichTextFX#download -->
         <dependency>
-            <groupId>richtextfx</groupId>
+            <groupId>org.fxmisc.richtext</groupId>
             <artifactId>richtextfx</artifactId>
             <version>0.6.10</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/richtextfx-fat-0.6.10.jar</systemPath>
-            <type>jar</type>
         </dependency>
 
         <!-- To run tests on IDE such as Eclipse, Intellij -->
@@ -85,6 +83,42 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <!-- Build an executable JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>application.MainApp</mainClass>
+                            <classpathPrefix>dependency-jars/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/dependency-jars/
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
