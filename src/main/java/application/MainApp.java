@@ -1,12 +1,15 @@
 package application;
 	
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -39,10 +42,17 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		
 		this.primaryStage.setTitle("TextProApp");
+		String iconFile = Objects.requireNonNull(MainApp.class.getClassLoader()
+				.getResource("view/text_editor.png")).toExternalForm();
+		this.primaryStage.getIcons().add(new Image(iconFile));
 		
 		try {
 			// Load root layout from fxml
-			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/RootLayout.fxml"));
+
+			URL fxmlFile = Objects.requireNonNull(MainApp.class.getClassLoader()
+					.getResource("view/RootLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(fxmlFile);
+
 			rootLayout = loader.load();
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -65,7 +75,10 @@ public class MainApp extends Application {
     private void showTextProApp() {
         try {
             // Load the fxml file and set into the center of the main layout
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/TextAppLayout.fxml"));
+
+			URL fxmlFile = Objects.requireNonNull(MainApp.class.getClassLoader()
+					.getResource("view/TextAppLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(fxmlFile);
             
             HBox textProPage = loader.load();
             rootLayout.setCenter(textProPage);
@@ -101,7 +114,11 @@ public class MainApp extends Application {
     public void showLoadFileDialog(AutoSpellingTextArea ta) {
     	try {
     		// Load the fxml file and create a new stage for the popup
-			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/LoadFileLayout.fxml"));
+
+			URL fxmlFile = Objects.requireNonNull(MainApp.class.getClassLoader()
+					.getResource("view/LoadFileLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(fxmlFile);
+
 			VBox page = loader.load();
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Load File");
@@ -134,7 +151,11 @@ public class MainApp extends Application {
 	public void showEditDistanceDialog(String selectedText) {
     	try {
     		// Load the fxml file and create a new stage for the popup
-			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/EditDistanceLayout.fxml"));
+
+			URL fxmlFile = Objects.requireNonNull(MainApp.class.getClassLoader()
+					.getResource("view/EditDistanceLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(fxmlFile);
+
 			VBox page = loader.load();
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Calculate Edit Distance");
@@ -210,8 +231,9 @@ public class MainApp extends Application {
     	
     	// set content and styling
     	alert.getDialogPane().setContent(box);
-    	alert.getDialogPane().getStylesheets().add(
-    			   getClass().getResource("application.css").toExternalForm());
+        String styleSheet = Objects.requireNonNull(MainApp.class.getClassLoader()
+				.getResource("view/application.css")).toExternalForm();
+    	alert.getDialogPane().getStylesheets().add(styleSheet);
     	alert.getDialogPane().getStyleClass().add("myDialog");
     	alert.showAndWait();
     }
@@ -223,7 +245,11 @@ public class MainApp extends Application {
 	public void showMarkovDialog(textgen.MarkovTextGenerator mtg) {
     	try {
     		// Load the fxml file and create a new stage for the popup
-			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MarkovLayout.fxml"));
+
+			URL fxmlFile = Objects.requireNonNull(MainApp.class.getClassLoader()
+					.getResource("view/MarkovLayout.fxml"));
+			FXMLLoader loader = new FXMLLoader(fxmlFile);
+
 			BorderPane page = loader.load();
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Markov Text Generator");
